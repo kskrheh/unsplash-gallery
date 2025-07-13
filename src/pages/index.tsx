@@ -1,20 +1,23 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import SearchBar from "@/components/SearchBar";
-import ImageGrid from "@/components/ImageGrid";
+import ImageGrid, { UnsplashImage } from "@/components/ImageGrid";
 import ImageModal from "@/components/ImageModal";
 
-function debounce<T extends (...args: any[]) => void>(func: T, delay: number): T {
+function debounce<T extends (...args: unknown[]) => void>(
+  func: T,
+  delay: number
+): (...args: Parameters<T>) => void {
   let timer: ReturnType<typeof setTimeout>;
   return function (...args: Parameters<T>) {
     clearTimeout(timer);
     timer = setTimeout(() => func(...args), delay);
-  } as T;
+  };
 }
 
 export default function Home() {
   const [query, setQuery] = useState("");
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState<UnsplashImage[]>([]);
   const [page, setPage] = useState(1);
   const [hasSearched, setHasSearched] = useState(false);
   const [isLoading, setIsLoading] = useState(false);

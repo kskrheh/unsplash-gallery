@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-type UnsplashImage = {
+export type UnsplashImage = {
   id: string;
   alt_description?: string;
   urls: {
